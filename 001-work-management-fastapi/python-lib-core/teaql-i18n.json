@@ -1,0 +1,266 @@
+{
+    "schema": "teaql.i18n/v1",
+    "defaultLocale": "en",
+    "locales": {
+        "de": {
+            "vocabulary": {
+            },
+            "messages": {
+            }
+        },
+        "ko": {
+            "vocabulary": {
+            },
+            "messages": {
+            }
+        },
+        "pt": {
+            "vocabulary": {
+            },
+            "messages": {
+            }
+        },
+        "zh-TW": {
+            "vocabulary": {
+            },
+            "messages": {
+            }
+        },
+        "fil": {
+            "vocabulary": {
+            },
+            "messages": {
+            }
+        },
+        "en": {
+            "vocabulary": {
+                "property.projectSection.workSpace": "Work Space",
+                "property.taskBlueprint.repeatPeriod": "Repeat Period",
+                "property.taskBlueprint.version": "Version",
+                "property.workSubtask.task": "Task",
+                "property.blueprintSubtask.subtaskTitle": "Subtask Title",
+                "property.projectField.project": "Project",
+                "entity.workSpace": "Work Space",
+                "property.projectSection.id": "Id",
+                "property.blueprintChoice.workSpace": "Work Space",
+                "entity.blueprintChoice": "Blueprint Choice",
+                "property.workTask.id": "Id",
+                "property.inboxNotice.recipient": "Recipient",
+                "entity.projectMembership": "Project Membership",
+                "property.taskFieldChoice.workSpace": "Work Space",
+                "property.taskBlueprint.approval": "Approval",
+                "property.blueprintSubtask.workSpace": "Work Space",
+                "property.recurrenceLink.version": "Version",
+                "property.workTask.approval": "Approval",
+                "entity.taskDependency": "Task Dependency",
+                "property.taskParticipant.id": "Id",
+                "property.blueprintChoice.field": "Field",
+                "property.blueprintChoice.id": "Id",
+                "property.taskBlueprint.workSpace": "Work Space",
+                "property.workProject.workSpace": "Work Space",
+                "property.projectField.workSpace": "Work Space",
+                "property.workSubtask.id": "Id",
+                "property.workProject.ownerAccount": "Owner Account",
+                "property.inboxNotice.id": "Id",
+                "property.fieldOption.id": "Id",
+                "property.taskPlacement.section": "Section",
+                "property.workTask.assignee": "Assignee",
+                "property.fieldOption.version": "Version",
+                "property.taskEvent.scopeProject": "Scope Project",
+                "property.taskBlueprint.initialDescription": "Initial Description",
+                "property.taskComment.commentText": "Comment Text",
+                "entity.workTask": "Work Task",
+                "entity.recurrenceLink": "Recurrence Link",
+                "property.taskPlacement.workSpace": "Work Space",
+                "property.workAccount.workSpace": "Work Space",
+                "property.taskEvent.eventTime": "Event Time",
+                "property.projectSection.sectionOrder": "Section Order",
+                "property.workTask.version": "Version",
+                "property.projectSection.defaultSection": "Default Section",
+                "property.projectSection.sectionName": "Section Name",
+                "entity.workSubtask": "Work Subtask",
+                "property.taskBlueprint.assignee": "Assignee",
+                "property.recurrenceLink.sourceTask": "Source Task",
+                "property.taskPlacement.placementOrder": "Placement Order",
+                "property.workTask.createdBy": "Created By",
+                "property.fieldOption.field": "Field",
+                "property.deletedTaskViewer.workSpace": "Work Space",
+                "property.deletedTaskViewer.version": "Version",
+                "property.projectSection.project": "Project",
+                "property.workProject.projectName": "Project Name",
+                "property.workTask.repeatPeriod": "Repeat Period",
+                "property.workTask.taskTitle": "Task Title",
+                "property.taskParticipant.version": "Version",
+                "property.inboxNotice.workSpace": "Work Space",
+                "property.workSubtask.dueDate": "Due Date",
+                "property.workSubtask.completed": "Completed",
+                "entity.taskParticipant": "Task Participant",
+                "property.taskBlueprint.initialTitle": "Initial Title",
+                "property.inboxNotice.task": "Task",
+                "property.workSubtask.subtaskTitle": "Subtask Title",
+                "property.projectMembership.id": "Id",
+                "property.taskComment.author": "Author",
+                "property.deletedTaskViewer.id": "Id",
+                "property.blueprintChoice.selectedOption": "Selected Option",
+                "property.inboxNotice.readFlag": "Read Flag",
+                "property.taskDependency.version": "Version",
+                "property.workAccount.displayName": "Display Name",
+                "property.workProject.version": "Version",
+                "property.taskComment.id": "Id",
+                "property.taskDependency.blocker": "Blocker",
+                "property.taskEvent.eventKind": "Event Kind",
+                "property.projectMembership.memberAccount": "Member Account",
+                "property.inboxNotice.event": "Event",
+                "property.fieldOption.optionOrder": "Option Order",
+                "property.blueprintChoice.blueprint": "Blueprint",
+                "property.workAccount.version": "Version",
+                "property.workTask.description": "Description",
+                "property.taskEvent.oldValue": "Old Value",
+                "property.workAccount.emailAddress": "Email Address",
+                "property.blueprintSubtask.dueOffset": "Due Offset",
+                "property.taskComment.createTime": "Create Time",
+                "property.projectMembership.version": "Version",
+                "property.inboxNotice.version": "Version",
+                "property.workSpace.workspaceName": "Workspace Name",
+                "property.workAccount.passwordHash": "Password Hash",
+                "entity.projectSection": "Project Section",
+                "property.taskFieldChoice.id": "Id",
+                "property.taskDependency.dependent": "Dependent",
+                "property.taskBlueprint.dueOffset": "Due Offset",
+                "property.fieldOption.optionName": "Option Name",
+                "property.taskPlacement.task": "Task",
+                "property.projectField.id": "Id",
+                "property.workSubtask.assignee": "Assignee",
+                "property.taskDependency.workSpace": "Work Space",
+                "property.workTask.workSpace": "Work Space",
+                "property.taskBlueprint.id": "Id",
+                "property.blueprintSubtask.id": "Id",
+                "entity.workAccount": "Work Account",
+                "entity.projectField": "Project Field",
+                "property.taskFieldChoice.version": "Version",
+                "property.taskParticipant.workSpace": "Work Space",
+                "entity.deletedTaskViewer": "Deleted Task Viewer",
+                "property.workTask.completed": "Completed",
+                "property.blueprintSubtask.blueprint": "Blueprint",
+                "property.workTask.project": "Project",
+                "property.projectField.version": "Version",
+                "property.taskFieldChoice.selectedOption": "Selected Option",
+                "entity.taskComment": "Task Comment",
+                "property.taskEvent.workSpace": "Work Space",
+                "property.recurrenceLink.nextTask": "Next Task",
+                "property.workTask.startDate": "Start Date",
+                "property.taskDependency.id": "Id",
+                "property.taskPlacement.version": "Version",
+                "property.taskEvent.id": "Id",
+                "property.workTask.dueDate": "Due Date",
+                "property.workSpace.version": "Version",
+                "property.workSubtask.workSpace": "Work Space",
+                "property.taskPlacement.id": "Id",
+                "property.taskParticipant.task": "Task",
+                "property.projectSection.version": "Version",
+                "property.workTask.taskOrder": "Task Order",
+                "property.recurrenceLink.workSpace": "Work Space",
+                "entity.workProject": "Work Project",
+                "entity.blueprintSubtask": "Blueprint Subtask",
+                "property.workSubtask.version": "Version",
+                "property.taskComment.workSpace": "Work Space",
+                "property.recurrenceLink.id": "Id",
+                "property.taskFieldChoice.field": "Field",
+                "property.deletedTaskViewer.viewer": "Viewer",
+                "property.taskComment.task": "Task",
+                "property.blueprintSubtask.assignee": "Assignee",
+                "property.projectField.fieldName": "Field Name",
+                "property.workSpace.id": "Id",
+                "property.taskPlacement.project": "Project",
+                "property.taskEvent.task": "Task",
+                "property.taskEvent.fieldLabel": "Field Label",
+                "property.taskEvent.relatedTask": "Related Task",
+                "property.deletedTaskViewer.task": "Task",
+                "entity.fieldOption": "Field Option",
+                "property.fieldOption.workSpace": "Work Space",
+                "property.workAccount.id": "Id",
+                "property.taskBlueprint.project": "Project",
+                "entity.taskFieldChoice": "Task Field Choice",
+                "property.workProject.id": "Id",
+                "property.projectMembership.workSpace": "Work Space",
+                "property.projectMembership.project": "Project",
+                "property.taskEvent.actor": "Actor",
+                "property.taskEvent.newValue": "New Value",
+                "property.blueprintSubtask.version": "Version",
+                "property.workTask.section": "Section",
+                "property.workTask.decision": "Decision",
+                "property.workTask.primaryDetached": "Primary Detached",
+                "entity.taskBlueprint": "Task Blueprint",
+                "property.taskEvent.version": "Version",
+                "entity.inboxNotice": "Inbox Notice",
+                "property.taskFieldChoice.task": "Task",
+                "property.workProject.shiftDates": "Shift Dates",
+                "property.taskComment.edited": "Edited",
+                "property.taskComment.version": "Version",
+                "property.workTask.deletedEpoch": "Deleted Epoch",
+                "property.taskParticipant.participant": "Participant",
+                "property.projectMembership.accessRole": "Access Role",
+                "entity.taskPlacement": "Task Placement",
+                "entity.taskEvent": "Task Event",
+                "property.taskBlueprint.templateName": "Template Name",
+                "property.blueprintChoice.version": "Version"
+            },
+            "messages": {
+            }
+        },
+        "fr": {
+            "vocabulary": {
+            },
+            "messages": {
+            }
+        },
+        "zh-CN": {
+            "vocabulary": {
+            },
+            "messages": {
+            }
+        },
+        "es": {
+            "vocabulary": {
+            },
+            "messages": {
+            }
+        },
+        "ar": {
+            "vocabulary": {
+            },
+            "messages": {
+            }
+        },
+        "vi": {
+            "vocabulary": {
+            },
+            "messages": {
+            }
+        },
+        "th": {
+            "vocabulary": {
+            },
+            "messages": {
+            }
+        },
+        "uk": {
+            "vocabulary": {
+            },
+            "messages": {
+            }
+        },
+        "ja": {
+            "vocabulary": {
+            },
+            "messages": {
+            }
+        },
+        "id": {
+            "vocabulary": {
+            },
+            "messages": {
+            }
+        }
+    }
+}

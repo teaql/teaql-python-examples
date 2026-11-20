@@ -1,0 +1,13 @@
+[project]
+name = "work-management-service-web"
+version = "1.0.0"
+requires-python = ">=3.10"
+dependencies = ["teaql==0.5.0", "fastapi>=0.115", "uvicorn>=0.30", "aiosqlite>=0.22.1"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["app*"]
+
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"

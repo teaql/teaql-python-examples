@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root name="work-management-service" org="example" data_service="sqlite" teaql_python_version="0.5.0" _module_key="root" web_auth_account="work_account,display_name,email_address,password_hash" web_auth_registration="self_service" model_uuid="80d5b7c4-537c-44fb-a220-9f9997b055bf" agent="codex" agent_version="0.169.0-alpha.11.1" llm_provider="openai" llm_model="gpt-6.2-sol" skill_version="2026.11.16.1">
+  <work_space _name="Workspace" _module="Work" _module_key="work" workspace_name="Shared workspace" />
+  <work_account _name="Account" _module="Work" _module_key="work" _cat="human"
+                work_space="work_space()" display_name="Sample Member" email_address="member@example.com"
+                password_hash="example-hash" _audit_mask_fields="display_name,email_address,password_hash" />
+  <work_project _name="Project" _module="Work" _module_key="work"
+                work_space="work_space()" owner_account="work_account()" project_name="Design review" shift_dates="false?"
+                _web_title="project_name" _web_crud_fields="project_name"
+                _web_authorization="project_access" _web_create_handler="initialize_project" />
+  <project_membership _name="Membership" _module="Work" _module_key="work"
+                      work_space="work_space()" project="work_project()" member_account="work_account()" access_role="full?"
+                      _web_container="project" />
+  <project_section _name="Section" _module="Work" _module_key="work"
+                   work_space="work_space()" project="work_project()" section_name="Tasks"
+                   section_order="100?" default_section="true" _web_title="section_name" _web_container="project" />
+  <work_task _name="Task" _module="Work" _module_key="work"
+             work_space="work_space()" project="work_project()" section="project_section()"
+             deleted_epoch="100?" approval="false?" decision="pending?" repeat_period="none?" created_by="work_account()?" primary_detached="false?" task_order="100?" task_title="Review draft" description="Example details?" assignee="work_account()?"
+             start_date="2030-05-08?" due_date="2030-05-10?" completed="false"
+             _web_title="task_title" _web_crud_fields="task_title,description,assignee,start_date,due_date,completed,approval,repeat_period"
+             _web_multiline="description" _web_date_order="start_date,due_date" _web_defaults="{&quot;completed&quot;: false, &quot;repeat_period&quot;: &quot;none&quot;}"
+             _web_container="project" _web_authorization="task_access"
+             _web_candidates="{&quot;assignee&quot;: &quot;project_accounts&quot;}"
+             _web_group="section" _web_group_query="project_sections" _web_create_handler="place_task" />
+  <project_field _name="Project field" _module="Work" _module_key="work" work_space="work_space()"
+                 project="work_project()" field_name="Priority" _web_container="project" />
+  <field_option _name="Field option" _module="Work" _module_key="work" work_space="work_space()"
+                field="project_field()" option_name="High" option_order="100" _web_container="field" />
+  <task_field_choice _name="Task field value" _module="Work" _module_key="work" work_space="work_space()"
+                     task="work_task()" field="project_field()" selected_option="field_option()" _web_container="task" />
+  <work_subtask _name="Subtask" _module="Work" _module_key="work" work_space="work_space()"
+                task="work_task()" subtask_title="Prepare brief" assignee="work_account()?"
+                due_date="2030-05-10?" completed="false" _web_container="task" />
+  <task_comment _name="Task comment" _module="Work" _module_key="work" work_space="work_space()"
+                task="work_task()" author="work_account()" comment_text="Review tomorrow" edited="false"
+                create_time="createTime()" _web_container="task" />
+  <task_dependency _name="Task dependency" _module="Work" _module_key="work" work_space="work_space()"
+                   dependent="work_task()" blocker="work_task()" _web_container="dependent" />
+  <task_placement _name="Project task placement" _module="Work" _module_key="work"
+                  work_space="work_space()" task="work_task()" project="work_project()"
+                  section="project_section()" placement_order="100" _web_container="task" />
+  <recurrence_link _name="Recurring occurrence" _module="Work" _module_key="work" work_space="work_space()"
+                   source_task="work_task()" next_task="work_task()" _web_container="source_task" />
+  <task_event _name="Task activity" _module="Work" _module_key="work" work_space="work_space()"
+              task="work_task()" actor="work_account()" scope_project="work_project()?" related_task="work_task()?"
+              event_kind="task_edit" field_label="Title" old_value="Previous value?" new_value="Changed value?"
+              event_time="createTime()" _web_container="task" />
+  <task_participant _name="Task participant" _module="Work" _module_key="work" work_space="work_space()"
+                    task="work_task()" participant="work_account()" _web_container="task" />
+  <deleted_task_viewer _name="Deleted task viewer" _module="Work" _module_key="work" work_space="work_space()"
+                       task="work_task()" viewer="work_account()" _web_container="task" />
+  <task_blueprint _name="Task template" _module="Work" _module_key="work" work_space="work_space()"
+                  project="work_project()" template_name="Review checklist" initial_title="Review draft"
+                  initial_description="Draft text?" assignee="work_account()?" due_offset="7?"
+                  repeat_period="none" approval="false" _web_container="project" />
+  <blueprint_choice _name="Template field" _module="Work" _module_key="work" work_space="work_space()"
+                    blueprint="task_blueprint()" field="project_field()" selected_option="field_option()" _web_container="blueprint" />
+  <blueprint_subtask _name="Template subtask" _module="Work" _module_key="work" work_space="work_space()"
+                     blueprint="task_blueprint()" subtask_title="Prepare materials" assignee="work_account()?"
+                     due_offset="2?" _web_container="blueprint" />
+  <inbox_notice _name="Inbox notification" _module="Work" _module_key="work" work_space="work_space()"
+                task="work_task()" recipient="work_account()" event="task_event()" read_flag="false" _web_container="task" />
+</root>

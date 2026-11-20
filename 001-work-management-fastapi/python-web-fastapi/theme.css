@@ -1,0 +1,245 @@
+:root {
+  color-scheme: light;
+  color: #263346;
+  background: #fcfbf9;
+}
+nav,
+form {
+  margin-block: 0.6rem;
+}
+button {
+  cursor: pointer;
+  margin: 0.15rem;
+  padding: 0.3rem 0.55rem;
+}
+.board-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(14rem, 1fr);
+  gap: 0.75rem;
+  overflow: auto;
+}
+.board-col,
+.list-section {
+  border: 1px solid #d5dadd;
+  border-radius: 0.5rem;
+  padding: 0.7rem;
+  margin: 0.55rem 0;
+}
+.board-cards {
+  min-height: 4rem;
+}
+article {
+  padding: 0.55rem;
+  margin: 0.35rem 0;
+  background: #f0f3f5;
+  border-radius: 0.3rem;
+}
+
+:root {
+  font-family:
+    Inter,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+  color: #162538;
+  background: #f8fafb;
+  accent-color: #18624e;
+}
+body {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 1.5rem clamp(1rem, 3vw, 3rem) 4rem;
+}
+h1 {
+  margin: 1.3rem 0 0.9rem;
+  font-size: clamp(1.7rem, 3.3vw, 2.5rem);
+  letter-spacing: -0.035em;
+}
+h2 {
+  font-size: 1.25rem;
+  margin: 1.3rem 0 0.6rem;
+}
+h3 {
+  font-size: 1rem;
+  margin: 0.75rem 0 0.55rem;
+}
+a {
+  color: #155846;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.17em;
+}
+button,
+summary {
+  cursor: pointer;
+}
+button {
+  border: 1px solid #c9d3d4;
+  border-radius: 0.4rem;
+  padding: 0.4rem 0.65rem;
+  background: #fff;
+  color: #263746;
+  line-height: 1.3;
+}
+button:hover {
+  border-color: #426f65;
+}
+button:disabled {
+  opacity: 0.55;
+  cursor: default;
+}
+button[aria-pressed="true"],
+button[type="submit"] {
+  background: #135b48;
+  border-color: #135b48;
+  color: #fff;
+}
+:focus-visible {
+  outline: 3px solid #3588c4;
+  outline-offset: 2px;
+}
+input:not([type="checkbox"]),
+textarea,
+select {
+  box-sizing: border-box;
+  width: min(100%, 32rem);
+  border: 1px solid #aebdc2;
+  border-radius: 0.35rem;
+  padding: 0.38rem 0.55rem;
+  color: #162538;
+  background: #fff;
+}
+textarea {
+  min-height: 4.5rem;
+  resize: vertical;
+}
+label {
+  font-size: 0.92rem;
+  font-weight: 550;
+}
+label input,
+label textarea,
+label select {
+  margin-top: 0.25rem;
+  font-weight: 400;
+}
+.workspace-navigation {
+  display: flex;
+  gap: 0.4rem 1.15rem;
+  flex-wrap: wrap;
+  padding: 0.45rem 0 1rem;
+  border-bottom: 1px solid #cfd8da;
+}
+.workspace-navigation a {
+  font-weight: 600;
+}
+.project-tools {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.45rem;
+}
+.project-tools > section:has([aria-expanded="true"]) {
+  flex-basis: 100%;
+}
+.board-grid {
+  grid-auto-columns: minmax(16rem, 1fr);
+  align-items: start;
+  gap: 0.85rem;
+  padding-bottom: 0.45rem;
+}
+.board-col,
+.list-section {
+  background: #eff3f3;
+  border: 1px solid #d7e0df;
+  padding: 0.75rem;
+  border-radius: 0.55rem;
+  min-width: 0;
+}
+.board-col h3,
+.list-section h3 {
+  margin: 0.2rem 0 0.6rem;
+}
+.board-cards {
+  min-height: 5rem;
+}
+.board-cards article {
+  padding: 0.75rem;
+  background: white;
+  border: 1px solid #d1dcd9;
+  border-radius: 0.45rem;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+.board-cards article > a {
+  font-weight: 650;
+}
+.board-cards article[draggable="true"] {
+  cursor: grab;
+}
+article details {
+  margin: 0.4rem 0 0;
+  font-size: 0.875rem;
+}
+details summary {
+  color: #3f5357;
+}
+[role="alert"] {
+  color: #9a302d;
+}
+@media (max-width: 40rem) {
+  .board-grid {
+    grid-auto-columns: minmax(14rem, 85%);
+  }
+  .workspace-navigation {
+    gap: 0.6rem 0.85rem;
+  }
+  input:not([type="checkbox"]),
+  select,
+  textarea {
+    font-size: 1rem;
+  }
+}
+.project-tools > details {
+  margin: 0.15rem;
+  padding: 0.4rem 0.65rem;
+}
+.project-tools details summary {
+  line-height: 1.3;
+}
+dl {
+  margin: 0.6rem 0 1rem;
+}
+dt {
+  color: #455865;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+dd {
+  margin: 0.2rem 0 0.7rem;
+}
+.board-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  align-items: center;
+  margin-top: 1.1rem;
+}
+.board-tools nav {
+  margin-right: auto;
+}
+.create-task {
+  font-weight: 650;
+}
+.card-metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.65rem;
+  color: #4d606a;
+  font-size: 0.86rem;
+}
+.card-metadata > * + * {
+  border-inline-start: 1px solid #cfd9da;
+  padding-inline-start: 0.65rem;
+}

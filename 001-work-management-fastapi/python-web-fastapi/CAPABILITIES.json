@@ -1,0 +1,1368 @@
+{
+  "auth_account": "work_account",
+  "auth_enabled": true,
+  "crud_enabled": false,
+  "entities": [
+    {
+      "field_contracts": {
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "workspace_name": {
+          "kind": "text",
+          "managed": false,
+          "nullable": false
+        }
+      },
+      "fields": [
+        "id",
+        "workspace_name",
+        "version"
+      ],
+      "name": "work_space",
+      "relations": {},
+      "storage_table": "work_space_data",
+      "web_contracts": {}
+    },
+    {
+      "field_contracts": {
+        "display_name": {
+          "kind": "text",
+          "managed": false,
+          "nullable": false
+        },
+        "email_address": {
+          "kind": "text",
+          "managed": false,
+          "nullable": false
+        },
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "password_hash": {
+          "kind": "text",
+          "managed": false,
+          "nullable": false
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "display_name",
+        "email_address",
+        "password_hash",
+        "version"
+      ],
+      "name": "work_account",
+      "relations": {
+        "work_space": "work_space"
+      },
+      "storage_table": "work_account_data",
+      "web_contracts": {}
+    },
+    {
+      "detail_route": "/crud/work_project/{id}",
+      "field_contracts": {
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "owner_account": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_account"
+        },
+        "project_name": {
+          "kind": "text",
+          "managed": false,
+          "nullable": false
+        },
+        "shift_dates": {
+          "kind": "boolean",
+          "managed": false,
+          "nullable": true
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "owner_account",
+        "project_name",
+        "shift_dates",
+        "version"
+      ],
+      "name": "work_project",
+      "relations": {
+        "owner_account": "work_account",
+        "work_space": "work_space"
+      },
+      "storage_table": "work_project_data",
+      "web_contracts": {
+        "_web_authorization": "project_access",
+        "_web_create_handler": "initialize_project",
+        "_web_crud_fields": "project_name"
+      }
+    },
+    {
+      "field_contracts": {
+        "access_role": {
+          "kind": "text",
+          "managed": false,
+          "nullable": true
+        },
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "member_account": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_account"
+        },
+        "project": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_project"
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "project",
+        "member_account",
+        "access_role",
+        "version"
+      ],
+      "name": "project_membership",
+      "relations": {
+        "member_account": "work_account",
+        "project": "work_project",
+        "work_space": "work_space"
+      },
+      "storage_table": "project_membership_data",
+      "web_contracts": {
+        "_web_container": "project"
+      }
+    },
+    {
+      "field_contracts": {
+        "default_section": {
+          "kind": "boolean",
+          "managed": false,
+          "nullable": false
+        },
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "project": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_project"
+        },
+        "section_name": {
+          "kind": "text",
+          "managed": false,
+          "nullable": false
+        },
+        "section_order": {
+          "kind": "integer",
+          "managed": false,
+          "nullable": true
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "project",
+        "section_name",
+        "section_order",
+        "default_section",
+        "version"
+      ],
+      "name": "project_section",
+      "relations": {
+        "project": "work_project",
+        "work_space": "work_space"
+      },
+      "storage_table": "project_section_data",
+      "web_contracts": {
+        "_web_container": "project"
+      }
+    },
+    {
+      "detail_route": "/crud/work_task/{id}",
+      "field_contracts": {
+        "approval": {
+          "kind": "boolean",
+          "managed": false,
+          "nullable": true
+        },
+        "assignee": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": true,
+          "target": "work_account"
+        },
+        "completed": {
+          "kind": "boolean",
+          "managed": false,
+          "nullable": false
+        },
+        "created_by": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": true,
+          "target": "work_account"
+        },
+        "decision": {
+          "kind": "text",
+          "managed": false,
+          "nullable": true
+        },
+        "deleted_epoch": {
+          "kind": "integer",
+          "managed": false,
+          "nullable": true
+        },
+        "description": {
+          "kind": "text",
+          "managed": false,
+          "nullable": true
+        },
+        "due_date": {
+          "kind": "date",
+          "managed": false,
+          "nullable": true
+        },
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "primary_detached": {
+          "kind": "boolean",
+          "managed": false,
+          "nullable": true
+        },
+        "project": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_project"
+        },
+        "repeat_period": {
+          "kind": "text",
+          "managed": false,
+          "nullable": true
+        },
+        "section": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "project_section"
+        },
+        "start_date": {
+          "kind": "date",
+          "managed": false,
+          "nullable": true
+        },
+        "task_order": {
+          "kind": "integer",
+          "managed": false,
+          "nullable": true
+        },
+        "task_title": {
+          "kind": "text",
+          "managed": false,
+          "nullable": false
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "project",
+        "section",
+        "deleted_epoch",
+        "approval",
+        "decision",
+        "repeat_period",
+        "created_by",
+        "primary_detached",
+        "task_order",
+        "task_title",
+        "description",
+        "assignee",
+        "start_date",
+        "due_date",
+        "completed",
+        "version"
+      ],
+      "name": "work_task",
+      "relations": {
+        "assignee": "work_account",
+        "created_by": "work_account",
+        "project": "work_project",
+        "section": "project_section",
+        "work_space": "work_space"
+      },
+      "storage_table": "work_task_data",
+      "web_contracts": {
+        "_web_authorization": "task_access",
+        "_web_candidates": "{\"assignee\": \"project_accounts\"}",
+        "_web_container": "project",
+        "_web_create_handler": "place_task",
+        "_web_crud_fields": "task_title,description,assignee,start_date,due_date,completed,approval,repeat_period"
+      }
+    },
+    {
+      "field_contracts": {
+        "field_name": {
+          "kind": "text",
+          "managed": false,
+          "nullable": false
+        },
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "project": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_project"
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "project",
+        "field_name",
+        "version"
+      ],
+      "name": "project_field",
+      "relations": {
+        "project": "work_project",
+        "work_space": "work_space"
+      },
+      "storage_table": "project_field_data",
+      "web_contracts": {
+        "_web_container": "project"
+      }
+    },
+    {
+      "field_contracts": {
+        "field": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "project_field"
+        },
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "option_name": {
+          "kind": "text",
+          "managed": false,
+          "nullable": false
+        },
+        "option_order": {
+          "kind": "integer",
+          "managed": false,
+          "nullable": false
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "field",
+        "option_name",
+        "option_order",
+        "version"
+      ],
+      "name": "field_option",
+      "relations": {
+        "field": "project_field",
+        "work_space": "work_space"
+      },
+      "storage_table": "field_option_data",
+      "web_contracts": {
+        "_web_container": "field"
+      }
+    },
+    {
+      "field_contracts": {
+        "field": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "project_field"
+        },
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "selected_option": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "field_option"
+        },
+        "task": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_task"
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "task",
+        "field",
+        "selected_option",
+        "version"
+      ],
+      "name": "task_field_choice",
+      "relations": {
+        "field": "project_field",
+        "selected_option": "field_option",
+        "task": "work_task",
+        "work_space": "work_space"
+      },
+      "storage_table": "task_field_choice_data",
+      "web_contracts": {
+        "_web_container": "task"
+      }
+    },
+    {
+      "field_contracts": {
+        "assignee": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": true,
+          "target": "work_account"
+        },
+        "completed": {
+          "kind": "boolean",
+          "managed": false,
+          "nullable": false
+        },
+        "due_date": {
+          "kind": "date",
+          "managed": false,
+          "nullable": true
+        },
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "subtask_title": {
+          "kind": "text",
+          "managed": false,
+          "nullable": false
+        },
+        "task": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_task"
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "task",
+        "subtask_title",
+        "assignee",
+        "due_date",
+        "completed",
+        "version"
+      ],
+      "name": "work_subtask",
+      "relations": {
+        "assignee": "work_account",
+        "task": "work_task",
+        "work_space": "work_space"
+      },
+      "storage_table": "work_subtask_data",
+      "web_contracts": {
+        "_web_container": "task"
+      }
+    },
+    {
+      "field_contracts": {
+        "author": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_account"
+        },
+        "comment_text": {
+          "kind": "text",
+          "managed": false,
+          "nullable": false
+        },
+        "create_time": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "edited": {
+          "kind": "boolean",
+          "managed": false,
+          "nullable": false
+        },
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "task": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_task"
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "task",
+        "author",
+        "comment_text",
+        "edited",
+        "create_time",
+        "version"
+      ],
+      "name": "task_comment",
+      "relations": {
+        "author": "work_account",
+        "task": "work_task",
+        "work_space": "work_space"
+      },
+      "storage_table": "task_comment_data",
+      "web_contracts": {
+        "_web_container": "task"
+      }
+    },
+    {
+      "field_contracts": {
+        "blocker": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_task"
+        },
+        "dependent": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_task"
+        },
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "dependent",
+        "blocker",
+        "version"
+      ],
+      "name": "task_dependency",
+      "relations": {
+        "blocker": "work_task",
+        "dependent": "work_task",
+        "work_space": "work_space"
+      },
+      "storage_table": "task_dependency_data",
+      "web_contracts": {
+        "_web_container": "dependent"
+      }
+    },
+    {
+      "field_contracts": {
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "placement_order": {
+          "kind": "integer",
+          "managed": false,
+          "nullable": false
+        },
+        "project": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_project"
+        },
+        "section": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "project_section"
+        },
+        "task": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_task"
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "task",
+        "project",
+        "section",
+        "placement_order",
+        "version"
+      ],
+      "name": "task_placement",
+      "relations": {
+        "project": "work_project",
+        "section": "project_section",
+        "task": "work_task",
+        "work_space": "work_space"
+      },
+      "storage_table": "task_placement_data",
+      "web_contracts": {
+        "_web_container": "task"
+      }
+    },
+    {
+      "field_contracts": {
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "next_task": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_task"
+        },
+        "source_task": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_task"
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "source_task",
+        "next_task",
+        "version"
+      ],
+      "name": "recurrence_link",
+      "relations": {
+        "next_task": "work_task",
+        "source_task": "work_task",
+        "work_space": "work_space"
+      },
+      "storage_table": "recurrence_link_data",
+      "web_contracts": {
+        "_web_container": "source_task"
+      }
+    },
+    {
+      "field_contracts": {
+        "actor": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_account"
+        },
+        "event_kind": {
+          "kind": "text",
+          "managed": false,
+          "nullable": false
+        },
+        "event_time": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "field_label": {
+          "kind": "text",
+          "managed": false,
+          "nullable": false
+        },
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "new_value": {
+          "kind": "text",
+          "managed": false,
+          "nullable": true
+        },
+        "old_value": {
+          "kind": "text",
+          "managed": false,
+          "nullable": true
+        },
+        "related_task": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": true,
+          "target": "work_task"
+        },
+        "scope_project": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": true,
+          "target": "work_project"
+        },
+        "task": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_task"
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "task",
+        "actor",
+        "scope_project",
+        "related_task",
+        "event_kind",
+        "field_label",
+        "old_value",
+        "new_value",
+        "event_time",
+        "version"
+      ],
+      "name": "task_event",
+      "relations": {
+        "actor": "work_account",
+        "related_task": "work_task",
+        "scope_project": "work_project",
+        "task": "work_task",
+        "work_space": "work_space"
+      },
+      "storage_table": "task_event_data",
+      "web_contracts": {
+        "_web_container": "task"
+      }
+    },
+    {
+      "field_contracts": {
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "participant": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_account"
+        },
+        "task": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_task"
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "task",
+        "participant",
+        "version"
+      ],
+      "name": "task_participant",
+      "relations": {
+        "participant": "work_account",
+        "task": "work_task",
+        "work_space": "work_space"
+      },
+      "storage_table": "task_participant_data",
+      "web_contracts": {
+        "_web_container": "task"
+      }
+    },
+    {
+      "field_contracts": {
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "task": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_task"
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "viewer": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_account"
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "task",
+        "viewer",
+        "version"
+      ],
+      "name": "deleted_task_viewer",
+      "relations": {
+        "task": "work_task",
+        "viewer": "work_account",
+        "work_space": "work_space"
+      },
+      "storage_table": "deleted_task_viewer_data",
+      "web_contracts": {
+        "_web_container": "task"
+      }
+    },
+    {
+      "field_contracts": {
+        "approval": {
+          "kind": "boolean",
+          "managed": false,
+          "nullable": false
+        },
+        "assignee": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": true,
+          "target": "work_account"
+        },
+        "due_offset": {
+          "kind": "integer",
+          "managed": false,
+          "nullable": true
+        },
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "initial_description": {
+          "kind": "text",
+          "managed": false,
+          "nullable": true
+        },
+        "initial_title": {
+          "kind": "text",
+          "managed": false,
+          "nullable": false
+        },
+        "project": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_project"
+        },
+        "repeat_period": {
+          "kind": "text",
+          "managed": false,
+          "nullable": false
+        },
+        "template_name": {
+          "kind": "text",
+          "managed": false,
+          "nullable": false
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "project",
+        "template_name",
+        "initial_title",
+        "initial_description",
+        "assignee",
+        "due_offset",
+        "repeat_period",
+        "approval",
+        "version"
+      ],
+      "name": "task_blueprint",
+      "relations": {
+        "assignee": "work_account",
+        "project": "work_project",
+        "work_space": "work_space"
+      },
+      "storage_table": "task_blueprint_data",
+      "web_contracts": {
+        "_web_container": "project"
+      }
+    },
+    {
+      "field_contracts": {
+        "blueprint": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "task_blueprint"
+        },
+        "field": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "project_field"
+        },
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "selected_option": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "field_option"
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "blueprint",
+        "field",
+        "selected_option",
+        "version"
+      ],
+      "name": "blueprint_choice",
+      "relations": {
+        "blueprint": "task_blueprint",
+        "field": "project_field",
+        "selected_option": "field_option",
+        "work_space": "work_space"
+      },
+      "storage_table": "blueprint_choice_data",
+      "web_contracts": {
+        "_web_container": "blueprint"
+      }
+    },
+    {
+      "field_contracts": {
+        "assignee": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": true,
+          "target": "work_account"
+        },
+        "blueprint": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "task_blueprint"
+        },
+        "due_offset": {
+          "kind": "integer",
+          "managed": false,
+          "nullable": true
+        },
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "subtask_title": {
+          "kind": "text",
+          "managed": false,
+          "nullable": false
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "blueprint",
+        "subtask_title",
+        "assignee",
+        "due_offset",
+        "version"
+      ],
+      "name": "blueprint_subtask",
+      "relations": {
+        "assignee": "work_account",
+        "blueprint": "task_blueprint",
+        "work_space": "work_space"
+      },
+      "storage_table": "blueprint_subtask_data",
+      "web_contracts": {
+        "_web_container": "blueprint"
+      }
+    },
+    {
+      "field_contracts": {
+        "event": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "task_event"
+        },
+        "id": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "read_flag": {
+          "kind": "boolean",
+          "managed": false,
+          "nullable": false
+        },
+        "recipient": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_account"
+        },
+        "task": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_task"
+        },
+        "version": {
+          "kind": "native",
+          "managed": true,
+          "nullable": false
+        },
+        "work_space": {
+          "kind": "reference",
+          "managed": false,
+          "nullable": false,
+          "target": "work_space"
+        }
+      },
+      "fields": [
+        "id",
+        "work_space",
+        "task",
+        "recipient",
+        "event",
+        "read_flag",
+        "version"
+      ],
+      "name": "inbox_notice",
+      "relations": {
+        "event": "task_event",
+        "recipient": "work_account",
+        "task": "work_task",
+        "work_space": "work_space"
+      },
+      "storage_table": "inbox_notice_data",
+      "web_contracts": {
+        "_web_container": "task"
+      }
+    }
+  ],
+  "frontend": {
+    "api_prefix": "/api",
+    "bundle": "frontend/dist/app.js",
+    "language": "typescript",
+    "renderer": "react",
+    "source": "frontend/main.tsx"
+  },
+  "model_crud_enabled": true,
+  "owner_example_entity": null,
+  "self_registration_enabled": true,
+  "service_default_access": "deny_without_trusted_actor_and_application_policy",
+  "service_example_routes_registered": false,
+  "service_examples": [
+    "app/service_examples/work_project.py",
+    "app/service_examples/work_subtask.py",
+    "app/service_examples/atomic_pair.py"
+  ],
+  "service_index": "SERVICE_INDEX.md",
+  "target": "python-web-fastapi",
+  "theme_stylesheet": {
+    "path": "theme.css",
+    "route": "/teaql-theme.css"
+  },
+  "workspace_layout": {
+    "archive_optional": true,
+    "domain_archive": "python-web-fastapi.zip",
+    "entrypoint": "app.py",
+    "library_directory": "../python-lib-core",
+    "library_modules": [
+      "Q.py",
+      "E.py",
+      "runtime_module.py",
+      "models/__init__.py",
+      "requests/__init__.py"
+    ],
+    "paths_relative_to": "capabilities_directory",
+    "version": 1
+  },
+  "workspace_modules": [
+    "app.py",
+    "app/__init__.py",
+    "app/application.py",
+    "app/auth.py",
+    "app/auth_model.py",
+    "app/auth_smoke.py",
+    "app/feature_bindings.py",
+    "app/feature_commands.py",
+    "app/feature_policy.py",
+    "app/feature_web.py",
+    "app/main.py",
+    "app/persistence_smoke.py",
+    "app/service_examples/__init__.py",
+    "app/service_examples/atomic_pair.py",
+    "app/service_examples/work_project.py",
+    "app/service_examples/work_subtask.py",
+    "app/service_smoke.py",
+    "app/services/__init__.py",
+    "app/services/_usage.py",
+    "app/services/contracts.py",
+    "app/services/errors.py",
+    "app/services/identity.py",
+    "app/services/inputs.py",
+    "app/services/temporal.py",
+    "app/services/transactions.py",
+    "app/web_transport.py"
+  ],
+  "workspace_services_enabled": true
+}

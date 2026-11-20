@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Workspace</title>
+    <link rel="stylesheet" href="/_teaql/base.css" />
+    <link rel="stylesheet" href="/teaql-theme.css" />
+    <script type="module" id="workspace-module">
+      import view from "__TEAQL_VIEW_URL__" with { type: "json" };
+      import { mount } from "/_teaql/app.js";
+      mount(view);
+    </script>
+  </head>
+  <body>
+    <main id="root" class="teaql-page" aria-busy="true">
+      <p role="status">Loading workspace…</p>
+      <noscript>Enable JavaScript to open this workspace.</noscript>
+    </main>
+    <script>
+      document
+        .getElementById("workspace-module")
+        .addEventListener("error", async () => {
+          const host = document.getElementById("root");
+          const notice = host.querySelector("[role=status]");
+          host.removeAttribute("aria-busy");
+          notice.setAttribute("role", "alert");
+          notice.textContent = "Could not load this page. Reload to try again.";
+          const tasks = document.createElement("a");
+          tasks.href = "/my-tasks";
+          tasks.textContent = "My Tasks";
+          host.append(tasks);
+          try {
+            const response = await fetch("__TEAQL_VIEW_URL__", {
+              cache: "no-store",
+            });
+            if (!response.ok) {
+              const error = await response.json();
+              if (typeof error.detail === "string")
+                notice.textContent = error.detail;
+            }
+          } catch {
+            /* Keep the message when the server is unreachable. */
+          }
+        });
+    </script>
+  </body>
+</html>
