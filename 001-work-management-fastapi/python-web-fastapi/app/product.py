@@ -8,7 +8,7 @@ from .auth import Identity, current_identity
 from .web_transport import browser_shell, json_fields, private_response
 from .feature_web import record_form_data, collection_data
 from .services.transactions import command, execute
-from . import auth_model, upgrade
+from . import auth_model, observability, upgrade
 from .work_data import *
 
 router = APIRouter(dependencies=[Depends(private_response)])
@@ -55,9 +55,19 @@ async def change(request, identity, name, target_id, payload=None):
     if not key and name in ("task-edit","task-trash"): key=secrets.token_urlsafe(24)
     if not 1 <= len(key) <= 200: raise HTTPException(400, "A command key is required")
     try:
-        return await execute(operation, identity.context, key=key,
-            parameters={"actor_id": identity.actor.id, "action": name, "target_id": target_id,
-                        "payload": json.dumps(values, sort_keys=True)}, comment="Apply workspace change " + name)
+        with observability.observe_business_step(identity.context, name):
+            return await execute(
+                operation,
+                identity.context,
+                key=key,
+                parameters={
+                    "actor_id": identity.actor.id,
+                    "action": name,
+                    "target_id": target_id,
+                    "payload": json.dumps(values, sort_keys=True),
+                },
+                comment="Apply workspace change " + name,
+            )
     except BusinessOperationError as error:
         if isinstance(error.__cause__, HTTPException): raise error.__cause__
         if isinstance(error.__cause__, (ValueError, KeyError, TypeError)):
@@ -288,6 +298,7 @@ def install(app):
     """Register the application routes before the generated generic CRUD routes."""
     if getattr(app.state, "work_management_installed", False):
         return
+    observability.install(app)
     upgrade.install(app)
     trash.install_expiry(app)
     app.router.routes[0:0] = router.routes

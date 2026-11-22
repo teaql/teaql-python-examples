@@ -1,0 +1,5 @@
+# BusinessOperation and standard telemetry from teaql/teaql-python#75.
+teaql[telemetry] @ https://codeload.github.com/teaql/teaql-python/zip/6119ae819c63a82995c29066e8eefb7be30fd391
+fastapi==0.163.0
+uvicorn==0.54.0
+aiosqlite==0.22.1

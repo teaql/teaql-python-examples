@@ -1,4 +1,5 @@
 """MVP business rules registered with the generated FastAPI CRUD adapter."""
+from .observability import observe_business_step
 from . import feature_commands as records
 from .feature_bindings import BY_IDS, FILTERS, MATCHERS, QUERIES
 
@@ -29,13 +30,14 @@ def project_sections(context, actor, parent, current):
 
 
 async def initialize_project(context, actor, parent, values):
-    project = await records.prepare(context, PROJECT, None, {**values, "owner_account": actor, "shift_dates": False})
-    await project.audit_as("Create the project").save(context)
-    membership = await records.prepare(context, MEMBERSHIP, project, {"member_account": actor, "access_role":"full"})
-    await membership.audit_as("Enroll the project creator").save(context)
-    section = await records.prepare(context, SECTION, project, {"section_name": "Tasks", "default_section": True, "section_order": 0})
-    await section.audit_as("Create the project's default section").save(context)
-    return {"id": project.id, "membership_id": membership.id, "section_id": section.id}
+    with observe_business_step(context, "project.initialize"):
+        project = await records.prepare(context, PROJECT, None, {**values, "owner_account": actor, "shift_dates": False})
+        await project.audit_as("Create the project").save(context)
+        membership = await records.prepare(context, MEMBERSHIP, project, {"member_account": actor, "access_role":"full"})
+        await membership.audit_as("Enroll the project creator").save(context)
+        section = await records.prepare(context, SECTION, project, {"section_name": "Tasks", "default_section": True, "section_order": 0})
+        await section.audit_as("Create the project's default section").save(context)
+        return {"id": project.id, "membership_id": membership.id, "section_id": section.id}
 
 
 async def verify_project(context, actor, parent, result):
@@ -50,15 +52,16 @@ async def verify_project(context, actor, parent, result):
 
 
 async def place_task(context, actor, parent, values):
-    sections = await records.related(context, SECTION, "project", parent.id)
-    defaults = [section for section in sections if records.value(SECTION, section, "default_section")]
-    if len(defaults) != 1:
-        raise ValueError("The project needs one explicitly designated default section")
-    task = await create_in_section(context, actor, parent, defaults[0], values)
-    if values.get("completed"):
-        from .recurrence import next_occurrence
-        await next_occurrence(context, actor, task)
-    return {"id": task.id}
+    with observe_business_step(context, "task.place"):
+        sections = await records.related(context, SECTION, "project", parent.id)
+        defaults = [section for section in sections if records.value(SECTION, section, "default_section")]
+        if len(defaults) != 1:
+            raise ValueError("The project needs one explicitly designated default section")
+        task = await create_in_section(context, actor, parent, defaults[0], values)
+        if values.get("completed"):
+            from .recurrence import next_occurrence
+            await next_occurrence(context, actor, task)
+        return {"id": task.id}
 
 
 async def create_in_section(context,actor,parent,section,values):

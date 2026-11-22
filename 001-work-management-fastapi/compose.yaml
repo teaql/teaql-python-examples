@@ -1,0 +1,53 @@
+name: teaql-work-observe
+
+services:
+  app:
+    build: .
+    ports:
+      - "127.0.0.1:${TEAQL_APP_PORT:-3000}:3000"
+    environment:
+      NO_PROXY: localhost,127.0.0.1,collector
+      no_proxy: localhost,127.0.0.1,collector
+      DATABASE_PATH: /data/app.sqlite3
+      TEAQL_LOG_ENDPOINT: stderr
+      TEAQL_TELEMETRY_ENABLED: "true"
+      TEAQL_TELEMETRY_SERVICE_NAME: teaql-work-management
+      TEAQL_TELEMETRY_OTLP_ENDPOINT: http://collector:4318
+    volumes:
+      - app-data:/data
+    depends_on:
+      - collector
+    healthcheck:
+      test: ["CMD", "python", "-c", "from urllib.request import urlopen; urlopen('http://127.0.0.1:3000/health', timeout=2).close()"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  collector:
+    image: otel/opentelemetry-collector-contrib:0.159.0@sha256:1f2c54a30e713fac6b3ae77a1ec84010c2007e29ced8ec666214fc2f6739c1cc
+    command: ["--config=/etc/otelcol/config.yaml"]
+    environment:
+      NO_PROXY: openobserve
+      no_proxy: openobserve
+      OPENOBSERVE_EMAIL: ${OPENOBSERVE_EMAIL:-root@teaql.local}
+      OPENOBSERVE_PASSWORD: ${OPENOBSERVE_PASSWORD:-TeaQL-Work-Local1!}
+    volumes:
+      - ./observability/collector.yaml:/etc/otelcol/config.yaml:ro
+    depends_on:
+      - openobserve
+
+  openobserve:
+    image: public.ecr.aws/zinclabs/openobserve:v0.92.2@sha256:88fb692ac791d3eaff69653a4a4686f1c7eceb9e105491d58d29ac2739560b3b
+    ports:
+      - "127.0.0.1:${OPENOBSERVE_PORT:-5080}:5080"
+    environment:
+      ZO_ROOT_USER_EMAIL: ${OPENOBSERVE_EMAIL:-root@teaql.local}
+      ZO_ROOT_USER_PASSWORD: ${OPENOBSERVE_PASSWORD:-TeaQL-Work-Local1!}
+      ZO_DATA_DIR: /data
+      ZO_TELEMETRY: "false"
+    volumes:
+      - observe-data:/data
+
+volumes:
+  app-data:
+  observe-data:
